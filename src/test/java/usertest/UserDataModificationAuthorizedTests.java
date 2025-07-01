@@ -10,7 +10,6 @@ import user.User;
 import user.UserClient;
 import user.UserDataGenerator;
 
-
 import static org.apache.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.*;
@@ -51,7 +50,7 @@ public class UserDataModificationAuthorizedTests {
     @DisplayName("Изменение email авторизованного пользователя")
     public void shouldChangeUserEmailWithAuth() {
         String oldEmail = testUser.getEmail();
-        testUser.setEmail("updatedEmail@test.com");
+        testUser.setEmail(UserDataGenerator.getRandomEmail()); // Исправлено здесь
         ValidatableResponse updateUserResponse = userClient.updateUserWithAuth(accessToken, Credentials.from(testUser));
         int statusCode = updateUserResponse.extract().statusCode();
         boolean isUserUpdated = updateUserResponse.extract().path("success");
